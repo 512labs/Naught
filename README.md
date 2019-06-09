@@ -1,2 +1,2 @@
-# Pibot
-Public cryptocurrency bot created by Pure Investments.
+# Cosmo
+Public cryptocurrency bot created by Astronaut.
