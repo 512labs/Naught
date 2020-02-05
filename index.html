@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Cache-control" content="private">
+    <script src="script.js"></script>
+  </head>
+  <body># Yuri Chart Function
+  <!-- TradingView Widget BEGIN -->
+  <div class="tradingview-widget-container">
+    <div id="tradingview_c6336"></div>
+  <!--  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL chart</span></a> by TradingView</div>-->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+      var test = "symbol=BINANCE:IOSTBTC&interval=1H&indicators=StochasticRSI@tv-basicstudies,MACD@tv-basicstudies,&style=0"
+//    var query = test.split("&");
+    var query = window.location.search.substring(1).split("&");
+    var DEFAULTS = {
+        symbol: "COINBASE:BTCUSD",
+        interval: "D",
+        indicators: "Volume@tv-basicstudies",
+        style: "1"
+    };
+    //var query = window.location.search.substring(1).split("&");
+    var data = {};
+    query.forEach((item) => {
+        var split = item.split('=');
+        var prop = split[0].trim();
+        var value = split[1].trim();
+
+        if(value.includes(',')) {
+            // select only non-empty values
+            value = value.split(',').filter((item) => item != '');
+        }
+
+        // messy...
+        data[prop] = value || (DEFAULTS[prop] ? DEFAULTS[prop] : '');
+    });
+    new TradingView.widget({
+      "width": 1200,
+      "height": 800,
+      "symbol": data.symbol,
+      "interval": data.interval,
+      "timezone": "Etc/UTC",
+      "theme": "Dark",
+      "style": data.style,
+      "locale": "en",
+      "toolbar_bg": "#f1f3f6",
+      "hide_top_toolbar": true,
+      "enable_publishing": false,
+      "save_image": false,
+      "studies": data.indicators,
+      "container_id": "tradingview_c6336"
+    });
+    </script>
+  </div>
+  <!-- TradingView Widget END -->
+</body>
+</html>
